@@ -4,6 +4,10 @@
 .mtj.tmp/
 
 # Package Files #
+.idea
+/target
+.iml
+.out
 *.jar
 *.war
 *.ear
