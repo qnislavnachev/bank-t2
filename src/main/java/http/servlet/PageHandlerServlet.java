@@ -3,7 +3,6 @@ package http.servlet;
 import com.google.common.io.ByteStreams;
 import core.PageHandler;
 import core.PageRegistry;
-import core.Request;
 import core.Response;
 
 import javax.servlet.ServletException;
