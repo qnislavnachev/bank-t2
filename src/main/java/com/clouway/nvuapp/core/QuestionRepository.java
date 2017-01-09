@@ -8,4 +8,5 @@ public interface QuestionRepository {
 
     List<Question> getQuestions(String tutorId);
 
+    List<Question> getQuestions();
 }

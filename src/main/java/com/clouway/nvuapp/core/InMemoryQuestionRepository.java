@@ -2,9 +2,7 @@ package com.clouway.nvuapp.core;
 
 import core.Question;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InMemoryQuestionRepository implements QuestionRepository {
 
@@ -22,4 +20,14 @@ public class InMemoryQuestionRepository implements QuestionRepository {
         return Collections.emptyList();
     }
 
+    @Override
+    public List<Question> getQuestions() {
+        List<Question> list = new LinkedList<>();
+        for (String tutorId : tutorToQuestionsListMap.keySet()) {
+            for (Question question : tutorToQuestionsListMap.get(tutorId)) {
+                list.add(question);
+            }
+        }
+        return list;
+    }
 }
