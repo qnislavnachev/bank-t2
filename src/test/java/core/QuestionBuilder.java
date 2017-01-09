@@ -4,6 +4,13 @@ package core;
  * @author Vasil Mitov <v.mitov.clouway@gmail.com>
  */
 public class QuestionBuilder {
+
+
+  public static QuestionBuilder aNewQuestion() {
+    return new QuestionBuilder();
+  }
+
+
   private String tutorId = "IF000";
   private String category = "A0";
   private Integer mod = 0;

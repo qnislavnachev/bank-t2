@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="assets/questionList.css">
+    <meta charset="UTF-8">
+    <title>View Question List</title>
+</head>
+<body>
+    <#list questionList as question>
+        <p>Вашите въпроси са:</p><br>
+                <table class="table">
+                    <tr><th>${question.question}<br>
+                    Детайли: Категория: ${question.category} , Модул: ${question.module} ,
+                    Подмодул: ${question.subModule} , Тема: ${question.theme} , Трудност: ${question.difficulty}</th></tr>
+                    <tr><td>A) ${question.answerA}</td></tr>
+                    <tr><td>B) ${question.answerB}</td></tr>
+                    <tr><td>C) ${question.answerC}</td></tr>
+                </table><br>
+        <#else>
+            <p>Няма добавени въпроси до момента</p>
+    </#list>
+</body>
+</html>
