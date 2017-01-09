@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import core.PageHandler;
 import core.PageRegistry;
 import core.Question;
+import http.controllers.AdminHomePageHandler;
+import http.controllers.AdminQuestionListHandler;
 import http.controllers.HomeHandler;
 import http.controllers.QuestionListHandler;
 import http.servlet.PageHandlerServlet;
@@ -26,11 +28,25 @@ public class JettyMain {
     final PageRegistry registry = new ServerPageRegistry(
             ImmutableMap.<String, PageHandler>of(
                     "/", new HomeHandler(),
+                    "/adminHome", new AdminHomePageHandler(),
                     "/questions", new QuestionListHandler("1234", new InMemoryQuestionRepository(
                             ImmutableMap.<String, List<Question>>of("1234",
                                     Lists.newArrayList(
                                             new Question("1234", "CAT1", 23, 1, 1, 1, "How are you today?", "I feel Good", "I feel bad", "I feed unusual"),
                                             new Question("1234", "CAT2", 23, 1, 1, 1, "How you feel today?", "I feel Good", "I feel bad", "I feed unusual")
+                                    )
+                            )
+                    )),
+                    "/adminQuestions", new AdminQuestionListHandler("admin", new InMemoryQuestionRepository(
+                            ImmutableMap.<String, List<Question>>of("1234",
+                                    Lists.newArrayList(
+                                            new Question("1234", "CAT1", 23, 1, 1, 1, "User: 1234 - How are you today?", "I feel Good", "I feel bad", "I feed unusual"),
+                                            new Question("1234", "CAT2", 23, 1, 1, 1, "User: 1234 - How you feel today?", "I feel Good", "I feel bad", "I feed unusual")
+                                    ),
+                                    "0987",
+                                    Lists.newArrayList(
+                                            new Question("0987", "CAT1", 23, 1, 1, 1, "User: 0987 - How are you today?", "I feel Good", "I feel bad", "I feed unusual"),
+                                            new Question("0987", "CAT2", 23, 1, 1, 1, "User: 0987 - How you feel today?", "I feel Good", "I feel bad", "I feed unusual")
                                     )
                             )
                     ))
