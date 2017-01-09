@@ -34,7 +34,12 @@ public class InMemoryQuestionRepository implements QuestionRepository {
     return Optional.absent();
   }
 
-    @Override
+  @Override
+  public List<Question> findQuestionsMatching( String category, String modul, String subModul, String theme, String diff) {
+    return Collections.emptyList();
+  }
+
+  @Override
     public List<Question> getQuestions() {
         List<Question> list = new LinkedList<>();
         for (String tutorId : tutorToQuestionsListMap.keySet()) {

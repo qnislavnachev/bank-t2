@@ -13,9 +13,9 @@ public class Question {
   private final Integer theme;
   private final Integer difficulty;
   private final String question;
-  private final String answerA;
-  private final String answerB;
-  private final String answerC;
+  private String answerA;
+  private String answerB;
+  private String answerC;
 
   public Question(String tutorId, String category, Integer mod, Integer subMod, Integer theme, Integer diff, String question, String answerA, String answerB, String answerC) {
     this.tutorId = tutorId;
@@ -68,6 +68,18 @@ public class Question {
 
   public String getAnswerC() {
     return answerC;
+  }
+
+  public void setAnswerA(String answerA) {
+    this.answerA = answerA;
+  }
+
+  public void setAnswerB(String answerB) {
+    this.answerB = answerB;
+  }
+
+  public void setAnswerC(String answerC) {
+    this.answerC = answerC;
   }
 
   @Override

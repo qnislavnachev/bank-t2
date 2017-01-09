@@ -19,7 +19,7 @@ public class PersistentQuestionRepositoryTest {
 
   @Before
   public void setUp() throws Exception {
-    tableManager.dropTable("QUESTIONS");
+    tableManager.truncateTable("QUESTIONS");
   }
 
   @Test

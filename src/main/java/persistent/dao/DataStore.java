@@ -63,4 +63,12 @@ public class DataStore {
       }
     }
   }
+
+  public Integer fetchCount(String query) {
+    List<Integer> result = fetchRows(query, resultSet -> resultSet.getInt(1));
+    if (result.get(0) == 0) {
+      return 1;
+    }
+    return result.get(0);
+  }
 }

@@ -4,6 +4,7 @@ import com.clouway.nvuapp.core.QuestionRepository;
 import com.google.common.base.Optional;
 import core.Question;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -43,8 +44,22 @@ public class InMemoryQuestionRepository implements QuestionRepository {
   }
 
   @Override
-  public Optional<Question> findQuestionMatching(String tutorId, String category, String model, String subModel, String theme, String diff, String question)
-  {
+  public Optional<Question> findQuestionMatching(String tutorId, String category, String model, String subModel, String theme, String diff, String question) {
     return Optional.absent();
+  }
+
+  @Override
+  public List<Question> findQuestionsMatching(String category, String modul, String subModul, String theme, String diff) {
+    List<Question> result = new LinkedList<>();
+    for (Question question : questions) {
+      if (question.getCategory().equals(category)
+              && question.getModule().equals(Integer.valueOf(modul))
+              && question.getSubModule().equals(Integer.valueOf(subModul))
+              && question.getTheme().equals(Integer.valueOf(theme))
+              && question.getDifficulty().equals(Integer.valueOf(diff))) {
+        result.add(question);
+      }
+    }
+    return result;
   }
 }

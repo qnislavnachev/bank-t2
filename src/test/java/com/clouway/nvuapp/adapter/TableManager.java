@@ -12,7 +12,7 @@ public class TableManager {
     this.dataStore = dataStore;
   }
 
-  public void dropTable(String tableName) {
+  public void truncateTable(String tableName) {
     String query = "truncate " + tableName;
     dataStore.update(query);
   }

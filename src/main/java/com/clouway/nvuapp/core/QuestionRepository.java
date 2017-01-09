@@ -15,4 +15,6 @@ public interface QuestionRepository {
   List<Question> getQuestions();
 
   Optional<Question> findQuestionMatching(String tutorId, String category, String modul, String subModul, String theme, String diff, String question);
+
+  List<Question> findQuestionsMatching(String category, String modul, String subModul, String theme, String diff);
 }

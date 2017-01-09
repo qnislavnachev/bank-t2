@@ -1,4 +1,8 @@
 import com.clouway.nvuapp.adapter.PersistentQuestionRepository;
+import com.clouway.nvuapp.adapter.PersistentQuestionnaireRepository;
+import com.clouway.nvuapp.core.InMemoryQuestionRepository;
+import com.clouway.nvuapp.core.QuestionRepository;
+import com.clouway.nvuapp.core.QuestionnaireRepository;
 import com.google.common.collect.ImmutableMap;
 import core.PageHandler;
 import core.PageRegistry;
@@ -8,7 +12,17 @@ import http.controllers.HomeHandler;
 import http.controllers.LoginHandler;
 import http.controllers.QuestionListHandler;
 import http.controllers.RegisterQuestionHandler;
+import http.controllers.RegisterQuestionnaireHandler;
 import http.controllers.TutorHandler;
+import core.Question;
+import http.controllers.AdminHomePageHandler;
+import http.controllers.AdminQuestionListHandler;
+import http.controllers.HomeHandler;
+import http.controllers.QuestionListHandler;
+import http.controllers.RegisterQuestionHandler;
+import http.controllers.*;
+import core.Question;
+import http.controllers.*;
 import http.servlet.PageHandlerServlet;
 import http.servlet.ResourceServlet;
 import http.servlet.ServerPageRegistry;
@@ -28,17 +42,22 @@ import javax.servlet.ServletContextListener;
 public class JettyMain {
   public static void main(String[] args) {
     final DataStore dataStore = new DataStore(new ConnectionProvider());
+    final PersistentQuestionnaireRepository questionnaireRepository=new PersistentQuestionnaireRepository(dataStore);
+    final PersistentQuestionRepository questionRepository=new PersistentQuestionRepository(dataStore);
     final PageRegistry registry = new ServerPageRegistry(
             ImmutableMap.<String, PageHandler>builder()
                     .put("/", new HomeHandler())
                     .put("/adminHome", new AdminHomePageHandler())
                     .put("/questions", new QuestionListHandler("1234", new PersistentQuestionRepository(dataStore)))
                     .put("/registerquestion", new RegisterQuestionHandler("1234", new PersistentQuestionRepository(dataStore)))
-                    .put("/adminQuestions", new AdminQuestionListHandler("1234", new PersistentQuestionRepository(dataStore)))
+                    .put("/adminHome/registerquestion", new RegisterQuestionHandler("1234", new PersistentQuestionRepository(dataStore)))
+                    .put("/adminHome/adminQuestions", new AdminQuestionListHandler("1234", new PersistentQuestionRepository(dataStore)))
                     .put("/registration", new TutorHandler(new PersistentTutorRepository(dataStore)))
+                    .put("/adminHome/questionnaire", new RegisterQuestionnaireHandler(questionRepository, questionnaireRepository))
+                    .put("/adminHome/new-questionnaire", new ShowRegisterQuestionnaireHandler(questionnaireRepository))
                     .put("/login", new LoginHandler(new PersistentTutorRepository(dataStore)))
-                    .build(),
-           new HomeHandler()
+                    .put("/adminHome/finishquestionnaire", new FinishRegisterQuestionnaireHandler(questionnaireRepository)).build(),
+            new HomeHandler()
     );
 
     Server server = new Server(8080);

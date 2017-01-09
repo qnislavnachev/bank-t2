@@ -90,4 +90,26 @@ public class PersistentQuestionRepository implements QuestionRepository {
     }
     return Optional.of(result.get(0));
   }
+
+  @Override
+  public List<Question> findQuestionsMatching(String category, String modul, String subModul, String theme, String diff) {
+    String query = "SELECT * FROM QUESTIONS" +
+            " WHERE CATEGORY='" + category + "'" +
+            " AND MODL=" + modul +
+            " AND SUB_MOD=" + subModul +
+            " AND THEME=" + theme +
+            " AND DIF=" + diff;
+    List<Question> result = datastore.fetchRows(query, resultSet -> new Question(
+            resultSet.getString(1),
+            resultSet.getString(2),
+            resultSet.getInt(3),
+            resultSet.getInt(4),
+            resultSet.getInt(5),
+            resultSet.getInt(6),
+            resultSet.getString(7),
+            resultSet.getString(8),
+            resultSet.getString(9),
+            resultSet.getString(10)));
+    return result;
+  }
 }
