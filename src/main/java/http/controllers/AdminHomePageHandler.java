@@ -8,8 +8,8 @@ import http.servlet.RsFreemarker;
 import java.util.Collections;
 
 public class AdminHomePageHandler implements PageHandler {
-    @Override
-    public Response handle(Request req) {
-        return new RsFreemarker("adminHome.html", Collections.<String, Object>emptyMap());
-    }
+  @Override
+  public Response handle(Request req) {
+    return new RsFreemarker("adminHome.html", Collections.<String, Object>emptyMap());
+  }
 }

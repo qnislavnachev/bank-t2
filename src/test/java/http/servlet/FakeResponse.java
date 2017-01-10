@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 public class FakeResponse implements Response {
   private byte[] bytes;
   private Integer status;
-  private Map<String,String> headers=new LinkedHashMap<>();
+  private Map<String, String> headers = new LinkedHashMap<>();
 
   public FakeResponse(String text, Integer status, Map<String, String> headers) {
     this.bytes = text.getBytes();
@@ -25,9 +25,9 @@ public class FakeResponse implements Response {
     this.headers = headers;
   }
 
-  public FakeResponse(String body, Integer status){
+  public FakeResponse(String body, Integer status) {
     this.bytes = body.getBytes();
-    this.status=status;
+    this.status = status;
   }
 
   public FakeResponse(Integer status, Map<String, String> headers) {
@@ -50,7 +50,7 @@ public class FakeResponse implements Response {
     return status;
   }
 
-  public void assertHasHeader(String header){
+  public void assertHasHeader(String header) {
     assertTrue(headers.containsKey(header));
   }
 }

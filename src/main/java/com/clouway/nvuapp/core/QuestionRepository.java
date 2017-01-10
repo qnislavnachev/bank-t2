@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface QuestionRepository {
 
-    List<Question> getQuestions(String tutorId);
+  List<Question> getQuestions(String tutorId);
 
-    List<Question> getQuestions();
+  List<Question> getQuestions();
 }

@@ -77,8 +77,8 @@ public class QuestionBuilder {
     return this;
   }
 
-  public Question build(){
-    return new Question(tutorId,category,mod,subMod,theme,diff,question,answerA,answerB,answerC);
+  public Question build() {
+    return new Question(tutorId, category, mod, subMod, theme, diff, question, answerA, answerB, answerC);
   }
 
 }

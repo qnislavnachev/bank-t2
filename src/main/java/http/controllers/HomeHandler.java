@@ -14,6 +14,6 @@ public class HomeHandler implements PageHandler {
 
   @Override
   public Response handle(Request req) {
-    return new RsFreemarker("home.html",Collections.<String,Object>emptyMap());
+    return new RsFreemarker("login.html", Collections.<String, Object>emptyMap());
   }
 }

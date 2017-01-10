@@ -11,9 +11,13 @@ import java.sql.SQLException;
  */
 public class ConnectionProvider implements Provider<Connection> {
   private final String database;
+  private final String password;
+  private final String host;
 
-  public ConnectionProvider(String database) {
+  public ConnectionProvider(String database, String password, String host) {
     this.database = database;
+    this.password = password;
+    this.host = host;
   }
 
   @Override
@@ -21,7 +25,7 @@ public class ConnectionProvider implements Provider<Connection> {
     Connection connection = null;
     try {
       Class.forName("com.mysql.jdbc.Driver").newInstance();
-      connection = DriverManager.getConnection("jdbc:mysql://localhost/" + database + "?user=root&password=clouway.com");
+      connection = DriverManager.getConnection("jdbc:mysql://" + host + "/" + database + "?user=root&password=" + password + "");
     } catch (IllegalAccessException e) {
       e.printStackTrace();
     } catch (InstantiationException e) {

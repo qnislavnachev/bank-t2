@@ -10,19 +10,19 @@ import http.servlet.RsRedirect;
 import java.util.Collections;
 
 public class AdminQuestionListHandler implements PageHandler {
-    private String tutorId;
-    private QuestionRepository repository;
+  private String tutorId;
+  private QuestionRepository repository;
 
-    public AdminQuestionListHandler(String tutorId, QuestionRepository repository) {
-        this.tutorId = tutorId;
-        this.repository = repository;
-    }
+  public AdminQuestionListHandler(String tutorId, QuestionRepository repository) {
+    this.tutorId = tutorId;
+    this.repository = repository;
+  }
 
-    @Override
-    public Response handle(Request req) {
-        if ("admin".equals(tutorId)) {
-            return new RsFreemarker("questionList.html", Collections.<String, Object>singletonMap("questionList", repository.getQuestions()));
-        }
-        return new RsRedirect("/home");
+  @Override
+  public Response handle(Request req) {
+    if ("admin".equals(tutorId)) {
+      return new RsFreemarker("questionList.html", Collections.<String, Object>singletonMap("questionList", repository.getQuestions()));
     }
+    return new RsRedirect("/home");
+  }
 }

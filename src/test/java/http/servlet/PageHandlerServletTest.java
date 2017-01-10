@@ -3,7 +3,6 @@ package http.servlet;
 import core.PageHandler;
 import core.PageRegistry;
 import core.Request;
-import core.Response;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Rule;
@@ -13,9 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.HttpURLConnection;
 import java.util.Collections;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.core.Is.is;
 
 /**
  * @author Vasil Mitov <v.mitov.clouway@gmail.com>

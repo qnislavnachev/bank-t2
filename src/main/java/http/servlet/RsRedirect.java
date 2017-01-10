@@ -24,7 +24,7 @@ public class RsRedirect implements Response {
 
   @Override
   public InputStream body() {
-    return new ByteArrayInputStream(new byte[] {});
+    return new ByteArrayInputStream(new byte[]{});
   }
 
   @Override

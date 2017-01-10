@@ -5,5 +5,5 @@ package core;
  */
 public interface PageHandler {
 
-   Response handle(Request req);
+  Response handle(Request req);
 }

@@ -1,18 +1,19 @@
 import com.clouway.nvuapp.core.InMemoryQuestionRepository;
+import com.clouway.nvuapp.core.TutorRepository;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import core.PageHandler;
 import core.PageRegistry;
 import core.Question;
-import http.controllers.AdminHomePageHandler;
-import http.controllers.AdminQuestionListHandler;
-import http.controllers.HomeHandler;
-import http.controllers.QuestionListHandler;
+import http.controllers.*;
 import http.servlet.PageHandlerServlet;
 import http.servlet.ResourceServlet;
 import http.servlet.ServerPageRegistry;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import persistent.adapter.ConnectionProvider;
+import persistent.adapter.PersistentTutorRepository;
+import persistent.dao.DataStore;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -49,7 +50,8 @@ public class JettyMain {
                                             new Question("0987", "CAT2", 23, 1, 1, 1, "User: 0987 - How you feel today?", "I feel Good", "I feel bad", "I feed unusual")
                                     )
                             )
-                    ))
+                    )),
+                    "/registration", new TutorHandler(new PersistentTutorRepository(new DataStore(new ConnectionProvider("localhost","nvuApp", "root"))))
             ),
             new HomeHandler()
     );

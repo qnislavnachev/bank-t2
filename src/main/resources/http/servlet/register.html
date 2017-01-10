@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" type="text/css" href="assets/register.css">
+    <script src="assets/register.js"></script>
+</head>
+<h1>Регистрация</h1>
+<form name='registration' onSubmit="return registerAcc();" action="/registration" method="POST">
+    <ul>
+        <li><label for="tutor_id"></label></li>
+        <li><input placeholder="ID" id="tutor_id" type="text" name="TUTOR_ID" size="16"/></li>
+        <li><label for="password"></label></li>
+        <li><input placeholder="Password" id="password" type="password" name="PASSWORD" size="16"/></li>
+        <li><label for="confirmPassword"></label></li>
+        <li><input placeholder="Confirm Password" id="confirmPassword" type="password" name="CONFIRMPASSWORD" size="16"/></li>
+        <li><input type="submit" name="submit" value="Създай Акаунт"/></li>
+    </ul>
+</form>
+<form action="/login">
+    <input type="submit" value="Вход"/>
+</form>
+<br>
+<p id="message"></p>
+<#if message??>
+    ${message}
+</#if>
+</body>
+</html>

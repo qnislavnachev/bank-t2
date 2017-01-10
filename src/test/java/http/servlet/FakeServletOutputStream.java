@@ -21,7 +21,7 @@ public class FakeServletOutputStream extends ServletOutputStream {
     outputStream.write(b);
   }
 
-  public void assertHasValue(String text){
-    assertThat(outputStream.toString(),is(equalTo(text)));
+  public void assertHasValue(String text) {
+    assertThat(outputStream.toString(), is(equalTo(text)));
   }
 }
