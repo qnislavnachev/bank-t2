@@ -44,7 +44,7 @@ public class JettyMain {
                             )
                     )))
                     .put("/registerquestion", new RegisterQuestionHandler("1234", new PersistentQuestionRepository(
-                            new DataStore(new ConnectionProvider("nvuApp","clouway.com","localhost")))))
+                            new DataStore(new ConnectionProvider()))))
                     .put("/adminQuestions", new AdminQuestionListHandler("admin", new InMemoryQuestionRepository(
                             ImmutableMap.<String, List<Question>>of("1234",
                                     Lists.newArrayList(
@@ -58,7 +58,7 @@ public class JettyMain {
                                     )
                             )
                     )))
-                    .put("/registration", new TutorHandler(new PersistentTutorRepository(new DataStore(new ConnectionProvider("localhost", "nvuApp", "root"))))
+                    .put("/registration", new TutorHandler(new PersistentTutorRepository(new DataStore(new ConnectionProvider())))
                     ).build(),
             new HomeHandler()
     );

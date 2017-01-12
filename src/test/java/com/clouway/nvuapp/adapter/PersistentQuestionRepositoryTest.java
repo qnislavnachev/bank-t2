@@ -14,7 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * @author Vasil Mitov <v.mitov.clouway@gmail.com>
  */
 public class PersistentQuestionRepositoryTest {
-  private DataStore datastore = new DataStore(new ConnectionProvider("nvuApp", "clouway.com", "localhost"));
+  private DataStore datastore = new DataStore(new ConnectionProvider());
   private TableManager tableManager = new TableManager(datastore);
 
   @Before
