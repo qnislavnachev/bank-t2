@@ -26,20 +26,20 @@ public class TutorHandler implements PageHandler {
     String tutorID = req.param("TUTOR_ID");
     String password = req.param("PASSWORD");
 
-
     if (Strings.isNullOrEmpty(tutorID) || Strings.isNullOrEmpty(password)) {
       return new RsFreemarker("register.html", Collections.singletonMap("message", ""));
     }
-
-
-    if (!Strings.isNullOrEmpty(tutorID) || !Strings.isNullOrEmpty(tutorID)) {
+    if (!Strings.isNullOrEmpty(tutorID) || !Strings.isNullOrEmpty(password) && !isValid(tutorID, password)) {
       if (repository.findTutor(tutorID).isEmpty()) {
         repository.register(new Tutor(tutorID, password));
         return new RsFreemarker("register.html", Collections.singletonMap("message", "Регистрацията беше успешна!"));
-      } else {
-        return new RsFreemarker("register.html", Collections.singletonMap("message", "Вече съществува такъв акаунт."));
       }
+        return new RsFreemarker("register.html", Collections.singletonMap("message", "Вече съществува такъв акаунт."));
     }
-    return new RsFreemarker("register.html", Collections.emptyMap());
+    return new RsFreemarker("register.html", Collections.singletonMap("message", ""));
+  }
+
+  private boolean isValid(String tutorID, String password) {
+    return (tutorID.length() == 5 && password.length() > 5 || password.length() < 10);
   }
 }
