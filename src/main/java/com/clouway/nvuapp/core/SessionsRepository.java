@@ -1,12 +1,17 @@
 package com.clouway.nvuapp.core;
 
 import core.Tutor;
+import core.TutorSession;
+
+import java.time.LocalDateTime;
 
 import java.util.Optional;
 
 public interface SessionsRepository {
 
-    void register(String sessionId, String tutorId);
+    TutorSession register(String tutorId, LocalDateTime instantTime);
 
-    Optional<Tutor> findTutorBySessionId(String sessionId);
+    void cleanExpiredSessions(LocalDateTime date);
+
+    Optional<Tutor> findTutorBySessionId(String sessionId, LocalDateTime date);
 }

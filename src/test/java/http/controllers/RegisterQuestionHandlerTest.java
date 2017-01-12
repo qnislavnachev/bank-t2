@@ -2,9 +2,7 @@ package http.controllers;
 
 import com.clouway.nvuapp.core.QuestionRepository;
 import com.google.common.io.ByteStreams;
-import core.PageHandler;
-import core.Question;
-import core.Response;
+import core.*;
 import loadquestionlisttest.FakeRequest;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.jmock.integration.junit4.JUnitRuleMockery;
@@ -32,7 +30,7 @@ public class RegisterQuestionHandlerTest {
     QuestionRepository repository = new http.controllers.InMemoryQuestionRepository(new LinkedList<Question>() {{
       add(new Question("4321", "A1", 1, 2, 3, 4, "q", "a", "b", "c"));
     }});
-    PageHandler registerQuestion = new RegisterQuestionHandler("1234", repository);
+    SecuredHandler registerQuestion = new RegisterQuestionHandler(repository);
     FakeRequest fakeRequest = new FakeRequest(new LinkedHashMap<String, Object>() {{
       put("category", "A1");
       put("module", "1");
@@ -44,7 +42,7 @@ public class RegisterQuestionHandlerTest {
       put("answerB", "");
       put("answerC", "");
     }});
-    Response response = registerQuestion.handle(fakeRequest);
+    Response response = registerQuestion.handle(fakeRequest, new Tutor("1234", ""));
 
     assertThat(reader().read(response), containsString("Всички полета трябва да бъдат попълнени."));
   }
@@ -56,7 +54,7 @@ public class RegisterQuestionHandlerTest {
       add(new Question("4321", "A1", 1, 1, 2, 6, "q", "a", "b", "c"));
       add(new Question("4321", "A1", 1, 2, 3, 4, "q", "a", "b", "c"));
     }});
-    PageHandler registerQuestion = new RegisterQuestionHandler("1234", repository);
+    SecuredHandler registerQuestion = new RegisterQuestionHandler(repository);
     FakeRequest fakeRequest = new FakeRequest(new LinkedHashMap<String, Object>() {{
       put("category", "A1");
       put("module", "1");
@@ -69,7 +67,7 @@ public class RegisterQuestionHandlerTest {
       put("answerC", "c");
     }});
 
-    Response response = registerQuestion.handle(fakeRequest);
+    Response response = registerQuestion.handle(fakeRequest, new Tutor("1234", ""));
 
     assertThat(reader().read(response), containsString("Въпросът е регистриран успешно."));
     assertThat(repository.getQuestions("1234").get(0), is(new Question("1234", "A1", 1, 2, 3, 4, "q", "a", "b", "c")));
@@ -82,7 +80,7 @@ public class RegisterQuestionHandlerTest {
         add(new Question("1234", "A1", 1, 2, 3, 4, "q", "a", "b", "c"));
       }
     });
-    PageHandler registerQuestion = new RegisterQuestionHandler("1234", repository);
+    SecuredHandler registerQuestion = new RegisterQuestionHandler(repository);
     FakeRequest fakeRequest = new FakeRequest(new LinkedHashMap<String, Object>() {{
       put("category", "A1");
       put("module", "1");
@@ -95,7 +93,7 @@ public class RegisterQuestionHandlerTest {
       put("answerC", "c");
     }});
 
-    Response response = registerQuestion.handle(fakeRequest);
+    Response response = registerQuestion.handle(fakeRequest, new Tutor("1234", ""));
 
     assertThat(reader().read(response), containsString("Вече има такъв регистриран въпрос."));
   }

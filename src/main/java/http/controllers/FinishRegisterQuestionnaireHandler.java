@@ -2,10 +2,7 @@ package http.controllers;
 
 import com.clouway.nvuapp.core.QuestionnaireRepository;
 import com.google.common.collect.ImmutableMap;
-import core.PageHandler;
-import core.Questionnaire;
-import core.Request;
-import core.Response;
+import core.*;
 import http.servlet.RsFreemarker;
 
 import java.util.Map;
@@ -13,7 +10,7 @@ import java.util.Map;
 /**
  * @author Vasil Mitov <v.mitov.clouway@gmail.com>
  */
-public class FinishRegisterQuestionnaireHandler implements PageHandler {
+public class FinishRegisterQuestionnaireHandler implements SecuredHandler {
   private final QuestionnaireRepository repository;
 
   public FinishRegisterQuestionnaireHandler(QuestionnaireRepository repository) {
@@ -21,7 +18,7 @@ public class FinishRegisterQuestionnaireHandler implements PageHandler {
   }
 
   @Override
-  public Response handle(Request req) {
+  public Response handle(Request req, Tutor tutor) {
 
     Questionnaire questionnaire = repository.getLastOrNewQuestionnaire();
     questionnaire.finish();

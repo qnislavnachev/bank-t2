@@ -4,11 +4,7 @@ import com.clouway.nvuapp.core.QuestionRepository;
 import com.clouway.nvuapp.core.QuestionnaireRepository;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-import core.PageHandler;
-import core.Question;
-import core.Questionnaire;
-import core.Request;
-import core.Response;
+import core.*;
 import http.servlet.RsFreemarker;
 
 import java.util.LinkedList;
@@ -19,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * @author Vasil Mitov <v.mitov.clouway@gmail.com>
  */
-public class RegisterQuestionnaireHandler implements PageHandler {
+public class RegisterQuestionnaireHandler implements SecuredHandler {
 
   private QuestionRepository questionRepository;
   private QuestionnaireRepository testRepository;
@@ -33,7 +29,7 @@ public class RegisterQuestionnaireHandler implements PageHandler {
   }
 
   @Override
-  public Response handle(Request req) {
+  public Response handle(Request req, Tutor tutor) {
     String amount = req.param("amount");
     String category = req.param("category");
     String modul = req.param("module");

@@ -2,9 +2,7 @@ package http.controllers;
 
 import com.clouway.nvuapp.core.QuestionRepository;
 import com.clouway.nvuapp.core.QuestionnaireRepository;
-import core.PageHandler;
-import core.Question;
-import core.Response;
+import core.*;
 import loadquestionlisttest.FakeRequest;
 import org.junit.Test;
 
@@ -31,7 +29,7 @@ public class RegisterQuestionnaireHandlerTest {
       add(new Question("4321", "A1", 1, 2, 3, 4, "This is a questionаaa", "as", "dadb", "asdc"));
     }});
 
-    PageHandler handler = new RegisterQuestionnaireHandler(questions, tests);
+    SecuredHandler handler = new RegisterQuestionnaireHandler(questions, tests);
     FakeRequest fakeRequest = new FakeRequest(new LinkedHashMap<String, Object>() {{
       put("amount", "2");
       put("category", "A1");
@@ -40,7 +38,7 @@ public class RegisterQuestionnaireHandlerTest {
       put("theme", "3");
       put("difficulty", "4");
     }});
-    Response response = handler.handle(fakeRequest);
+    Response response = handler.handle(fakeRequest, new Tutor("", ""));
     assertThat(reader().read(response), containsString("Въпросник номер " + 1 + " беше обновен."));
   }
 
@@ -56,7 +54,7 @@ public class RegisterQuestionnaireHandlerTest {
       add(new Question("1321", "A2", 2, 3, 4, 5, "Question has a different name", "a", "b", "c"));
     }});
 
-    PageHandler handler = new RegisterQuestionnaireHandler(questions, tests);
+    SecuredHandler handler = new RegisterQuestionnaireHandler(questions, tests);
     FakeRequest fakeRequest = new FakeRequest(new LinkedHashMap<String, Object>() {{
       put("category", "A1");
       put("module", "1");
@@ -66,7 +64,7 @@ public class RegisterQuestionnaireHandlerTest {
       put("amount", "2");
     }});
 
-    Response response = handler.handle(fakeRequest);
+    Response response = handler.handle(fakeRequest, new Tutor("", ""));
 
     assertTrue(pageContainsAtLeastOf(reader().read(response), 2, "This is a question",
             "This is also a question", "Another question",
@@ -90,7 +88,7 @@ public class RegisterQuestionnaireHandlerTest {
 
     QuestionnaireRepository tests = new InMemoryQuestionnaireRepository();
 
-    PageHandler handler = new RegisterQuestionnaireHandler(questions, tests);
+    SecuredHandler handler = new RegisterQuestionnaireHandler(questions, tests);
     FakeRequest fakeRequest = new FakeRequest(new LinkedHashMap<String, Object>() {{
       put("category", "A1");
       put("module", "1");
@@ -99,7 +97,7 @@ public class RegisterQuestionnaireHandlerTest {
       put("difficulty", "4");
       put("amount", "2");
     }});
-    handler.handle(fakeRequest);
+    handler.handle(fakeRequest, new Tutor("", ""));
 
     fakeRequest.setParams(new LinkedHashMap<String, String>() {{
       put("category", "B1");
@@ -110,7 +108,7 @@ public class RegisterQuestionnaireHandlerTest {
       put("amount", "1");
     }});
 
-    handler.handle(fakeRequest);
+    handler.handle(fakeRequest, new Tutor("", ""));
 
     assertThat(tests.getLastOrNewQuestionnaire().getID(), is(1));
     assertThat(tests.getLastOrNewQuestionnaire().getQuestions().size(), is(3));
@@ -121,7 +119,7 @@ public class RegisterQuestionnaireHandlerTest {
     QuestionRepository questions = new http.controllers.InMemoryQuestionRepository(new LinkedList<Question>());
     QuestionnaireRepository tests = new InMemoryQuestionnaireRepository();
 
-    PageHandler handler = new RegisterQuestionnaireHandler(questions, tests);
+    SecuredHandler handler = new RegisterQuestionnaireHandler(questions, tests);
     FakeRequest fakeRequest = new FakeRequest(new LinkedHashMap<String, Object>() {{
       put("category", "A1");
       put("module", "1");
@@ -130,7 +128,7 @@ public class RegisterQuestionnaireHandlerTest {
       put("difficulty", "4");
       put("amount", "1");
     }});
-    Response response = handler.handle(fakeRequest);
+    Response response = handler.handle(fakeRequest, new Tutor("", ""));
     assertThat(reader().read(response), containsString("Няма въпроси все още."));
     assertThat(reader().read(response), containsString("Нямаше с какво да обновим"));
   }
@@ -144,7 +142,7 @@ public class RegisterQuestionnaireHandlerTest {
 
     QuestionnaireRepository tests = new InMemoryQuestionnaireRepository();
 
-    PageHandler handler = new RegisterQuestionnaireHandler(questions, tests);
+    SecuredHandler handler = new RegisterQuestionnaireHandler(questions, tests);
     FakeRequest fakeRequest = new FakeRequest(new LinkedHashMap<String, Object>() {{
       put("category", "A1");
       put("module", "1");
@@ -154,7 +152,7 @@ public class RegisterQuestionnaireHandlerTest {
       put("amount", "2");
     }});
 
-    handler.handle(fakeRequest);
+    handler.handle(fakeRequest, new Tutor("", ""));
 
     fakeRequest.setParams(new LinkedHashMap<String, String>() {{
       put("category", "A1");
@@ -165,7 +163,7 @@ public class RegisterQuestionnaireHandlerTest {
       put("amount", "2");
     }});
 
-    Response response = handler.handle(fakeRequest);
+    Response response = handler.handle(fakeRequest, new Tutor("", ""));
     assertThat(reader().read(response), containsString("Нямаше с какво да обновим"));
     assertThat(reader().read(response), containsString("Няма регистрирани въпроси от този вид или вече са добавени"));
   }
@@ -179,7 +177,7 @@ public class RegisterQuestionnaireHandlerTest {
 
     QuestionnaireRepository tests = new InMemoryQuestionnaireRepository();
 
-    PageHandler handler = new RegisterQuestionnaireHandler(questions, tests);
+    SecuredHandler handler = new RegisterQuestionnaireHandler(questions, tests);
     FakeRequest fakeRequest = new FakeRequest(new LinkedHashMap<String, Object>() {{
       put("category", "A1");
       put("module", "1");
@@ -188,7 +186,7 @@ public class RegisterQuestionnaireHandlerTest {
       put("difficulty", "4");
       put("amount", "3");
     }});
-    Response response = handler.handle(fakeRequest);
+    Response response = handler.handle(fakeRequest, new Tutor("", ""));
     assertThat(reader().read(response), containsString("Въпросник номер 1 беше обновен."));
     assertThat(reader().read(response), containsString("Имаше само 2 въпроса от вида който искахте които можем да добавим."));
     assertThat(tests.getLastOrNewQuestionnaire().getQuestions().size(), is(2));
@@ -205,7 +203,7 @@ public class RegisterQuestionnaireHandlerTest {
 
     QuestionnaireRepository tests = new InMemoryQuestionnaireRepository();
 
-    PageHandler handler = new RegisterQuestionnaireHandler(questions, tests);
+    SecuredHandler handler = new RegisterQuestionnaireHandler(questions, tests);
     FakeRequest fakeRequest = new FakeRequest(new LinkedHashMap<String, Object>() {{
       put("category", "A1");
       put("module", "1");
@@ -214,7 +212,7 @@ public class RegisterQuestionnaireHandlerTest {
       put("difficulty", "4");
       put("amount", "2");
     }});
-    handler.handle(fakeRequest);
+    handler.handle(fakeRequest, new Tutor("", ""));
 
     fakeRequest.setParams(new LinkedHashMap<String, String>() {{
       put("category", "A1");
@@ -225,7 +223,7 @@ public class RegisterQuestionnaireHandlerTest {
       put("amount", "3");
     }});
 
-    handler.handle(fakeRequest);
+    handler.handle(fakeRequest, new Tutor("", ""));
 
     assertThat(tests.getLastOrNewQuestionnaire().getQuestions().size(), is(3));
 

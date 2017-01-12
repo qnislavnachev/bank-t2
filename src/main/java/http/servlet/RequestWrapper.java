@@ -32,7 +32,6 @@ public class RequestWrapper implements Request {
         return each;
       }
     }
-
     return null;
   }
 }

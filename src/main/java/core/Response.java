@@ -1,5 +1,6 @@
 package core;
 
+import javax.servlet.http.Cookie;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -14,4 +15,6 @@ public interface Response {
   Map<String, String> headers();
 
   int status();
+
+  Iterable<Cookie> cookies();
 }

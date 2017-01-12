@@ -5,10 +5,14 @@ import com.google.common.collect.Lists;
 import core.Question;
 import core.Request;
 import core.Response;
+import core.Tutor;
 import http.controllers.AdminQuestionListHandler;
+import http.controllers.AdminAuthenticationHandler;
+import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Test;
 
+import javax.servlet.http.Cookie;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,9 +37,9 @@ public class AdminQuestionListHandlerTest {
                     new Question("0987", "CAT2", 23, 1, 1, 1, "User-0987 How you feel today?", "I feel Good", "I feel bad", "I feed unusual")
             )
     ));
-    AdminQuestionListHandler questionListHandler = new AdminQuestionListHandler("admin", repository);
+    AdminQuestionListHandler questionListHandler = new AdminQuestionListHandler(repository);
 
-    Response response = questionListHandler.handle(request);
+    Response response = questionListHandler.handle(request, new Tutor("admin", ""));
 
     assertThat(reader().read(response), containsString("User-1234 How are you today?"));
     assertThat(reader().read(response), containsString("User-1234 How you feel today?"));
@@ -48,22 +52,10 @@ public class AdminQuestionListHandlerTest {
   public void noQuestionsInRepository() throws Exception {
     Request request = context.mock(Request.class);
     QuestionRepository repository = new InMemoryQuestionRepository(Collections.<String, List<Question>>emptyMap());
-    AdminQuestionListHandler questionListHandler = new AdminQuestionListHandler("admin", repository);
+    AdminQuestionListHandler questionListHandler = new AdminQuestionListHandler(repository);
 
-    Response response = questionListHandler.handle(request);
+    Response response = questionListHandler.handle(request, new Tutor("admin", ""));
 
     assertThat(reader().read(response), containsString("Няма добавени въпроси до момента"));
-  }
-
-  @Test
-  public void tutorIsNotAnAdmin() throws Exception {
-    Request request = context.mock(Request.class);
-    QuestionRepository repository = new InMemoryQuestionRepository(Collections.<String, List<Question>>emptyMap());
-    AdminQuestionListHandler questionListHandler = new AdminQuestionListHandler("notAdmin", repository);
-
-    Response response = questionListHandler.handle(request);
-    String uri = response.headers().get("Location");
-
-    assertThat(uri, equalTo("/home"));
   }
 }

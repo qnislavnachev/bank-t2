@@ -2,10 +2,13 @@ package http.servlet;
 
 import core.Response;
 
+import javax.servlet.http.Cookie;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -17,6 +20,7 @@ public class FakeResponse implements Response {
   private byte[] bytes;
   private Integer status;
   private Map<String, String> headers = new LinkedHashMap<>();
+  private Cookie cookie = new Cookie("notNull", "");
 
   public FakeResponse(String text, Integer status, Map<String, String> headers) {
     this.bytes = text.getBytes();
@@ -47,6 +51,11 @@ public class FakeResponse implements Response {
   @Override
   public int status() {
     return status;
+  }
+
+  @Override
+  public List<Cookie> cookies() {
+    return Collections.emptyList();
   }
 
   public void assertHasHeader(String header) {

@@ -1,28 +1,20 @@
 package http.controllers;
 
 import com.clouway.nvuapp.core.QuestionRepository;
-import core.PageHandler;
-import core.Request;
-import core.Response;
+import core.*;
 import http.servlet.RsFreemarker;
-import http.servlet.RsRedirect;
 
 import java.util.Collections;
 
-public class AdminQuestionListHandler implements PageHandler {
-  private String tutorId;
+public class AdminQuestionListHandler implements SecuredHandler {
   private QuestionRepository repository;
 
-  public AdminQuestionListHandler(String tutorId, QuestionRepository repository) {
-    this.tutorId = tutorId;
+  public AdminQuestionListHandler(QuestionRepository repository) {
     this.repository = repository;
   }
 
   @Override
-  public Response handle(Request req) {
-    if ("admin".equals(tutorId)) {
+  public Response handle(Request req, Tutor tutor) {
       return new RsFreemarker("questionList.html", Collections.<String, Object>singletonMap("questionList", repository.getQuestions()));
-    }
-    return new RsRedirect("/home");
   }
 }
