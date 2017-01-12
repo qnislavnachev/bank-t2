@@ -3,9 +3,13 @@ package http.servlet;
 import com.google.common.collect.ImmutableMap;
 import core.Response;
 
+import javax.servlet.http.Cookie;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -35,5 +39,10 @@ public class RsRedirect implements Response {
   @Override
   public int status() {
     return HttpURLConnection.HTTP_MOVED_TEMP;
+  }
+
+  @Override
+  public Iterable<Cookie> cookies() {
+    return Collections.emptyList();
   }
 }

@@ -56,6 +56,8 @@ public class PageHandlerServletTest {
     final HttpServletRequest req = context.mock(HttpServletRequest.class);
     final HttpServletResponse resp = context.mock(HttpServletResponse.class);
     PageHandlerServlet pageHandlerServlet = new PageHandlerServlet(registry);
+    FakeResponse fakeResponse = new FakeResponse(HttpURLConnection.HTTP_MOVED_TEMP,
+            Collections.singletonMap("Location", "/someOtherPage"));
 
     context.checking(new Expectations() {{
       oneOf(req).getRequestURI();
@@ -65,8 +67,7 @@ public class PageHandlerServletTest {
       will(returnValue(pageHandler));
 
       oneOf(pageHandler).handle(with(any(Request.class)));
-      will(returnValue(new FakeResponse(HttpURLConnection.HTTP_MOVED_TEMP,
-              Collections.singletonMap("Location", "/someOtherPage"))));
+      will(returnValue(fakeResponse));
 
       oneOf(resp).sendRedirect("/someOtherPage");
     }});

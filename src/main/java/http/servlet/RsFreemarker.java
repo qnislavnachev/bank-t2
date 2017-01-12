@@ -1,6 +1,7 @@
 package http.servlet;
 
 import com.google.common.collect.ImmutableMap;
+import core.Request;
 import core.Response;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
@@ -8,12 +9,17 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,5 +61,10 @@ public class RsFreemarker implements Response {
   @Override
   public int status() {
     return HttpURLConnection.HTTP_OK;
+  }
+
+  @Override
+  public Iterable<Cookie> cookies() {
+    return Collections.emptyList();
   }
 }

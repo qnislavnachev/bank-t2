@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import core.Question;
 import core.Request;
 import core.Response;
+import core.Tutor;
 import http.controllers.QuestionListHandler;
 import loadquestionlisttest.FakeRequest;
 import org.jmock.integration.junit4.JUnitRuleMockery;
@@ -33,9 +34,9 @@ public class QuestionListHandlerTest {
             )
     );
 
-    final QuestionListHandler questionListHandler = new QuestionListHandler("1234", questionRepository);
+    final QuestionListHandler questionListHandler = new QuestionListHandler(questionRepository);
 
-    Response response = questionListHandler.handle(request);
+    Response response = questionListHandler.handle(request, new Tutor("1234", ""));
 
     assertThat(reader().read(response), containsString("This is a question 1"));
     assertThat(reader().read(response), containsString("True answer 1"));
@@ -51,9 +52,9 @@ public class QuestionListHandlerTest {
   public void noQuestionInRepository() throws Exception {
     final Request request = context.mock(Request.class);
     final InMemoryQuestionRepository questionRepository = new InMemoryQuestionRepository(Collections.<String, List<Question>>emptyMap());
-    final QuestionListHandler questionListHandler = new QuestionListHandler("::any tutor id::", questionRepository);
+    final QuestionListHandler questionListHandler = new QuestionListHandler(questionRepository);
 
-    Response response = questionListHandler.handle(request);
+    Response response = questionListHandler.handle(request, new Tutor("::any tutor id::", ""));
 
     assertThat(reader().read(response), containsString("Няма добавени въпроси до момента"));
   }
@@ -66,9 +67,9 @@ public class QuestionListHandlerTest {
                     "89555", Lists.newArrayList(aNewQuestion().question("This is a question 1").answerA("True answer 1").build()
                     )));
 
-    final QuestionListHandler questionListHandler = new QuestionListHandler("1234", questionRepository);
+    final QuestionListHandler questionListHandler = new QuestionListHandler(questionRepository);
 
-    Response response = questionListHandler.handle(request);
+    Response response = questionListHandler.handle(request, new Tutor("1234", ""));
 
     assertThat(reader().read(response), containsString("Няма добавени въпроси до момента"));
   }

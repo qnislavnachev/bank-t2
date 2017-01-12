@@ -6,6 +6,7 @@ import core.PageRegistry;
 import core.Response;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,7 @@ public class PageHandlerServlet extends HttpServlet {
     Response response = pageHandler.handle(new RequestWrapper(req));
 
     if (response.status() == HttpURLConnection.HTTP_MOVED_TEMP) {
+      copyCookies(response, resp);
       resp.sendRedirect(response.headers().get("Location"));
       return;
     }
@@ -41,5 +43,11 @@ public class PageHandlerServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     doGet(req, resp);
+  }
+
+  private void copyCookies(Response response, HttpServletResponse httpResponse) {
+      for (Cookie each : response.cookies()) {
+        httpResponse.addCookie(each);
+      }
   }
 }

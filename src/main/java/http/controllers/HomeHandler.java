@@ -1,8 +1,6 @@
 package http.controllers;
 
-import core.PageHandler;
-import core.Request;
-import core.Response;
+import core.*;
 import http.servlet.RsFreemarker;
 
 import java.util.Collections;
@@ -10,10 +8,10 @@ import java.util.Collections;
 /**
  * @author Vasil Mitov <v.mitov.clouway@gmail.com>
  */
-public class HomeHandler implements PageHandler {
+public class HomeHandler implements SecuredHandler {
 
   @Override
-  public Response handle(Request req) {
+  public Response handle(Request req, Tutor tutor) {
     return new RsFreemarker("home.html",Collections.<String,Object>emptyMap());
   }
 }

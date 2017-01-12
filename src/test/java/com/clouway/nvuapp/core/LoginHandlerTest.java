@@ -7,6 +7,9 @@ import loadquestionlisttest.FakeRequest;
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Test;
+import persistent.adapter.ConnectionProvider;
+import persistent.adapter.PersistentSessionRepository;
+import persistent.dao.DataStore;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -22,8 +25,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class LoginHandlerTest {
   private JUnitRuleMockery context = new JUnitRuleMockery();
+  private SessionsRepository sessions = new PersistentSessionRepository(new DataStore(new ConnectionProvider()), 10);
   private TutorRepository repository = context.mock(TutorRepository.class);
-  private LoginHandler loginHandler = new LoginHandler(repository);
+  private LoginHandler loginHandler = new LoginHandler(sessions, repository);
   private List<Tutor> tutors = new LinkedList<>();
 
 

@@ -1,29 +1,24 @@
 package http.controllers;
 
 import com.clouway.nvuapp.core.QuestionRepository;
-import core.PageHandler;
-import core.Question;
-import core.Request;
-import core.Response;
+import core.*;
 import http.servlet.RsFreemarker;
+import http.servlet.RsRedirect;
 
 import java.util.Collections;
 
 /**
  * @author Vasil Mitov <v.mitov.clouway@gmail.com>
  */
-public class RegisterQuestionHandler implements PageHandler {
+public class RegisterQuestionHandler implements SecuredHandler {
 
-  private String tutorId;
   private QuestionRepository repository;
 
-  public RegisterQuestionHandler(String tutorId, QuestionRepository repository) {
-    this.tutorId = tutorId;
+  public RegisterQuestionHandler(QuestionRepository repository) {
     this.repository = repository;
   }
 
-  public Response handle(Request req) {
-
+  public Response handle(Request req, Tutor tutor) {
     String category = req.param("category");
     String module = req.param("module");
     String subModl = req.param("submodule");
@@ -38,7 +33,7 @@ public class RegisterQuestionHandler implements PageHandler {
       return new RsFreemarker("createQuestion.html", Collections.<String, Object>singletonMap("message", "Всички полета трябва да бъдат попълнени."));
     }
     String message=repository.register(
-            new Question(tutorId, category, Integer.valueOf(module),
+            new Question(tutor.tutorId, category, Integer.valueOf(module),
                         Integer.valueOf(subModl), Integer.valueOf(theme),
                         Integer.valueOf(diff), question, answerA, answerB, answerC));
     return new RsFreemarker("createQuestion.html", Collections.<String, Object>

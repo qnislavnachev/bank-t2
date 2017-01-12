@@ -51,4 +51,16 @@ public class PersistentQuestionRepositoryTest {
     assertThat(repository.getQuestions("tut1").size(), is(1));
     assertThat(repository.getQuestions("tut1").get(0), is(new Question("tut1", "B3", 2, 2, 5, 3, "tutor1 question", "answer", "answer", "answer")));
   }
+
+  @Test
+  public void getAllQuestions() throws Exception {
+    QuestionRepository repository = new PersistentQuestionRepository(datastore);
+    Question question1 = new Question("tut1", "B3", 2, 2, 5, 3, "tutor1 question", "answer", "answer", "answer");
+    Question question2 = new Question("tut2", "B3", 2, 2, 5, 3, "q", "a", "b", "c");
+
+    repository.register(question1);
+    repository.register(question2);
+
+    assertThat(repository.getQuestions().size(), is(2));
+  }
 }
