@@ -20,7 +20,20 @@ public class PersistentQuestionRepository implements QuestionRepository {
 
   @Override
   public List<Question> getQuestions(String tutorId) {
-    return Collections.emptyList();
+    String query = "SELECT * FROM QUESTIONS" +
+            " WHERE TUTOR_ID='" + tutorId + "'";
+    List<Question> result = datastore.fetchRows(query, resultSet -> new Question(
+            resultSet.getString(1),
+            resultSet.getString(2),
+            resultSet.getInt(3),
+            resultSet.getInt(4),
+            resultSet.getInt(5),
+            resultSet.getInt(6),
+            resultSet.getString(7),
+            resultSet.getString(8),
+            resultSet.getString(9),
+            resultSet.getString(10)));
+    return result;
   }
 
   @Override

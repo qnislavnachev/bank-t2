@@ -6,12 +6,20 @@
     <link rel="stylesheet" type="text/css" href="assets/login.css">
 </head>
 <body>
-<form action="/login">
-    <input type="text" placeholder="ID"><br>
-    <input type="text" placeholder="Password">
+<form action="/login" method="post">
+    <ul>
+        <li><label for="loginid"></label></li>
+        <li><input placeholder="ID" id="loginid" type="text" name="LoginID" size="16"/></li>
+        <li><label for="loginpass"></label></li>
+        <li><input placeholder="Password" id="loginpass" type="password" name="LoginPass" size="16"/></li>
+        <li><input type="submit" name="submit" value="Вход"/></li>
+    </ul>
 </form>
 <form action="/registration">
     <input class="buttonlink" type="submit" value="Регистрация"/>
 </form>
+<#if message??>
+    ${message}
+</#if>
 </body>
 </html>
