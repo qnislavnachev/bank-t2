@@ -2,7 +2,13 @@ import com.clouway.nvuapp.adapter.PersistentQuestionRepository;
 import com.google.common.collect.ImmutableMap;
 import core.PageHandler;
 import core.PageRegistry;
-import http.controllers.*;
+import http.controllers.AdminHomePageHandler;
+import http.controllers.AdminQuestionListHandler;
+import http.controllers.HomeHandler;
+import http.controllers.LoginHandler;
+import http.controllers.QuestionListHandler;
+import http.controllers.RegisterQuestionHandler;
+import http.controllers.TutorHandler;
 import http.servlet.PageHandlerServlet;
 import http.servlet.ResourceServlet;
 import http.servlet.ServerPageRegistry;
@@ -29,8 +35,9 @@ public class JettyMain {
                     .put("/questions", new QuestionListHandler("1234", new PersistentQuestionRepository(dataStore)))
                     .put("/registerquestion", new RegisterQuestionHandler("1234", new PersistentQuestionRepository(dataStore)))
                     .put("/adminQuestions", new AdminQuestionListHandler("1234", new PersistentQuestionRepository(dataStore)))
-                    .put("/registration", new TutorHandler(new PersistentTutorRepository(dataStore))
-                    ).build(),
+                    .put("/registration", new TutorHandler(new PersistentTutorRepository(dataStore)))
+                    .put("/login", new LoginHandler(new PersistentTutorRepository(dataStore)))
+                    .build(),
            new HomeHandler()
     );
 
