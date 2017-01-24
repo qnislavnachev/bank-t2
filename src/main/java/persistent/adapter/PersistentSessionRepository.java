@@ -37,6 +37,12 @@ public class PersistentSessionRepository implements SessionsRepository {
     }
 
     @Override
+    public void deleteSession(String sessionId) {
+        String query = "delete from SESSIONS where SID = ?";
+        dataStore.update(query, sessionId);
+    }
+
+    @Override
     public Optional<Tutor> findTutorBySessionId(String sessionId, LocalDateTime date) {
         String query = "select TUTOR_ID from SESSIONS where SID='" + sessionId + "' and EXPIRATION_TIME > '" + toTimestamp(date) + "'";
         List<Tutor> tutors = dataStore.fetchRows(query, resultSet -> new Tutor(resultSet.getString(1), ""));

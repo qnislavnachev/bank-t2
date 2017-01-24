@@ -2,6 +2,7 @@ package core;
 
 import org.hamcrest.*;
 
+import javax.servlet.http.Cookie;
 import java.util.Optional;
 
 public class CustomMatchers {
@@ -89,6 +90,27 @@ public class CustomMatchers {
             public void describeTo(Description description) {
                 description.appendText("expected ");
                 description.appendValue(false);
+            }
+        };
+    }
+
+    public static Matcher<Cookie> isDead() {
+        return new TypeSafeMatcher<Cookie>() {
+            @Override
+            protected boolean matchesSafely(Cookie cookie) {
+                return cookie.getMaxAge() == 0;
+            }
+
+            @Override
+            protected void describeMismatchSafely(Cookie item, Description mismatchDescription) {
+                mismatchDescription.appendText("was ");
+                mismatchDescription.appendValue(item.getMaxAge());
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("expected ");
+                description.appendValue(true);
             }
         };
     }

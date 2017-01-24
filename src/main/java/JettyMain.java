@@ -43,6 +43,7 @@ public class JettyMain {
                     .put("/adminHome/new-questionnaire", new AdminAuthenticationHandler(sessions, new ShowRegisterQuestionnaireHandler(questionnaireRepository)))
                     .put("/login", new LoginHandler(sessions, new PersistentTutorRepository(dataStore)))
                     .put("/adminHome/finishquestionnaire", new AdminAuthenticationHandler(sessions, new FinishRegisterQuestionnaireHandler(questionnaireRepository)))
+                    .put("/logout", new LogoutHandler(sessions))
                     .build(),
             new AuthenticatedHandler(sessions, new HomeHandler())
     );
