@@ -96,7 +96,10 @@ public class Questionnaire {
     return Objects.hashCode(ID, questions, answers);
   }
 
-  public boolean noAnswers() {
-    return answers.isEmpty();
+  public boolean isEmpty() {
+    if(answers.isEmpty()&&questions.isEmpty()) {
+      return true;
+    }
+    return false;
   }
 }

@@ -19,7 +19,7 @@ public class ConnectionPool {
       source.setDriverClassName("com.mysql.jdbc.Driver");
       source.setUsername(user);
       source.setPassword(pass);
-      source.setUrl("jdbc:mysql://" + host + "/" + dbName + "?autoReconnect=true&useSSL=false");
+      source.setUrl("jdbc:mysql://" + host + "/" + dbName + "?autoReconnect=true&useSSL=false&characterEncoding = UTF-8&useUnicode=true");
       source.setInitialSize(3);
     }
     return source;

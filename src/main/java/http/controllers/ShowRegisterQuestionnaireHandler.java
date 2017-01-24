@@ -26,7 +26,7 @@ public class ShowRegisterQuestionnaireHandler implements PageHandler {
   @Override
   public Response handle(Request req) {
     Questionnaire questionnaire = repository.getLastOrNewQuestionnaire();
-      if (questionnaire.noAnswers()) {
+      if (questionnaire.isEmpty()) {
         String message="Нов въпросник номер:"+questionnaire.getID();
         return new RsFreemarker("generateQuestionnaire.html", ImmutableMap.of("values", Collections.emptyList(),"message",message));
       }
