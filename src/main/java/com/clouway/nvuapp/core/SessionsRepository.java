@@ -13,5 +13,7 @@ public interface SessionsRepository {
 
     void cleanExpiredSessions(LocalDateTime date);
 
+    void deleteSession(String sessionId);
+
     Optional<Tutor> findTutorBySessionId(String sessionId, LocalDateTime date);
 }
