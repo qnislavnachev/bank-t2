@@ -1,7 +1,5 @@
 package com.clouway.nvuapp.core;
 
-import core.Tutor;
-
 import java.util.List;
 
 /**

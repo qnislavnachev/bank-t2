@@ -2,23 +2,15 @@ package com.clouway.nvuapp.core;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
-import core.Question;
-import core.Request;
-import core.Response;
-import core.Tutor;
-import http.controllers.AdminQuestionListHandler;
-import http.controllers.AdminAuthenticationHandler;
-import org.jmock.Expectations;
+import com.clouway.nvuapp.adapter.http.controllers.AdminQuestionListHandler;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Test;
 
-import javax.servlet.http.Cookie;
 import java.util.Collections;
 import java.util.List;
 
-import static core.ResponseReader.reader;
+import static com.clouway.nvuapp.core.ResponseReader.reader;
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 public class AdminQuestionListHandlerTest {
