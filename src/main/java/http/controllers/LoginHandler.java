@@ -18,6 +18,7 @@ import java.util.List;
 public class LoginHandler implements PageHandler {
   public final TutorRepository repository;
   public final SessionsRepository sessionsRepository;
+  private static final int ONE_MINUTE = 60 * 1000;
 
   public LoginHandler(SessionsRepository sessionsRepository, TutorRepository repository) {
     this.repository = repository;
@@ -60,7 +61,7 @@ public class LoginHandler implements PageHandler {
   private Response startSession(Response response, String tutorId, LocalDateTime instantTime) {
     TutorSession session = sessionsRepository.register(tutorId, instantTime);
     Cookie cookie = new Cookie("SID", session.id);
-    cookie.setMaxAge(session.lifeSpan);
+    cookie.setMaxAge(session.lifeSpan * ONE_MINUTE);
     return new RsWithCookies(cookie, response);
   }
 }
