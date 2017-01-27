@@ -1,0 +1,10 @@
+language: java
+jdk:
+  - oraclejdk8
+services:
+  - mysql
+before_script:
+  - mysql -e 'create database nvuAppTest;'
+  - mysql -u root nvuAppTest < schemas/app.sql
+after_script:
+  - mysql -e 'drop database nvuAppTest;'

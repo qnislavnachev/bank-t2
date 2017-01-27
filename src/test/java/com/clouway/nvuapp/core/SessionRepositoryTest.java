@@ -49,7 +49,6 @@ public class SessionRepositoryTest {
 
         assertThat(tutor1, isPresent());
         assertThat(tutor2, isPresent());
-
     }
 
     @Test
