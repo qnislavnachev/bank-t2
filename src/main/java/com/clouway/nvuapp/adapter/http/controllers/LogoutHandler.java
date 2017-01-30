@@ -19,8 +19,15 @@ public class LogoutHandler implements PageHandler {
     @Override
     public Response handle(Request req) {
         Cookie cookie = req.cookie("SID");
+        if (cookie == null) {
+            return new RsRedirect("/login");
+        }
+        deleteSession(cookie, repository);
+        return new RsWithCookies(cookie, new RsRedirect("/login"));
+    }
+
+    private void deleteSession(Cookie cookie, SessionsRepository repository) {
         repository.deleteSession(cookie.getValue());
         cookie.setMaxAge(0);
-        return new RsWithCookies(cookie, new RsRedirect("/login"));
     }
 }
