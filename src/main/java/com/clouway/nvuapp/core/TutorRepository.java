@@ -9,4 +9,6 @@ public interface TutorRepository {
   void register(Tutor tutor);
 
   List<Tutor> findTutor(String id);
+
+  List<Tutor> allTutors();
 }

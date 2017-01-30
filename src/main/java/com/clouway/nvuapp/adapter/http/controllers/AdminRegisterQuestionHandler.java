@@ -13,11 +13,10 @@ import java.util.Collections;
 /**
  * @author Vasil Mitov <v.mitov.clouway@gmail.com>
  */
-public class RegisterQuestionHandler implements SecuredHandler {
-
+public class AdminRegisterQuestionHandler implements SecuredHandler {
   private QuestionRepository repository;
 
-  public RegisterQuestionHandler(QuestionRepository repository) {
+  public AdminRegisterQuestionHandler(QuestionRepository repository) {
     this.repository = repository;
   }
 
@@ -33,13 +32,13 @@ public class RegisterQuestionHandler implements SecuredHandler {
     String answerC = req.param("answerC");
 
     if (checkForNullOrEmpty(category, module, subModl, theme, diff, question, answerA, answerB, answerC)) {
-      return new RsFreemarker("createQuestion.html", Collections.<String, Object>singletonMap("message", "Всички полета трябва да бъдат попълнени."));
+      return new RsFreemarker("adminCreateQuestion.html", Collections.<String, Object>singletonMap("message", "Всички полета трябва да бъдат попълнени."));
     }
     String message = repository.register(
             new Question(tutor.tutorId, category, Integer.valueOf(module),
                     Integer.valueOf(subModl), Integer.valueOf(theme),
                     Integer.valueOf(diff), question, answerA, answerB, answerC));
-    return new RsFreemarker("createQuestion.html", Collections.<String, Object>
+    return new RsFreemarker("adminCreateQuestion.html", Collections.<String, Object>
             singletonMap("message", message));
   }
 

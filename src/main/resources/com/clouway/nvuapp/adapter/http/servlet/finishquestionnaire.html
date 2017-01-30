@@ -3,37 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <title>Завърши Въпросник</title>
-    <link rel="stylesheet" type="text/css" href="/assets/home.css">
+    <link rel="stylesheet" type="text/css" href="/assets/project.css">
 </head>
 <body>
-<#if message??>
-    <h1>${message}</h1>
-</#if>
-<ul>
-    <#list values>
-        <#items as question>
-            <h2>
-                <li>Въпрос ${question?index+1}</li>
-            </h2>
-            <li>${question.question}</li>
-            <li>А)${question.answerA}</li>
-            <li>Б)${question.answerB}</li>
-            <li>В)${question.answerC}</li>
-        </#items>
+<#include "/adminNavbar.ftl">
+    <#if message??>
+        <h1>${message}</h1>
+    </#if>
+    <ul>
+        <#list values>
+            <#items as question>
+                <table class="table">
+                    <th>${question.question}<br>
+                        Детайли: Категория: ${question.category} , Модул: ${question.module} ,
+                        Подмодул: ${question.subModule} , Тема: ${question.theme} , Трудност: ${question.difficulty}
+                    </th>
+                    </tr>
+                    <tr>
+                        <td>A) ${question.answerA}</td>
+                    </tr>
+                    <tr>
+                        <td>B) ${question.answerB}</td>
+                    </tr>
+                    <tr>
+                        <td>C) ${question.answerC}</td>
+                    </tr>
+                </table>
+            </#items>
 
-        <#else>
-            <p>Въпросник неможе да няма въпроси във него моля върнете се и добавете въпроси първо</p>
-    </#list>
-</ul>
-<h2>Отговори към въпросника:</h2>
-<#list answers as key, value>
-    ${key}: ${value}
-    <#else>
-        Имаше проблем със отговорите
-</#list>
-</form>
-<form action="/adminHome" method="post">
-    <input type="submit" onclick="submit" value="Назад">
-</form>
+            <#else>
+                <p>Въпросник неможе да няма въпроси във него моля върнете се и добавете въпроси първо</p>
+        </#list>
+    </ul>
+    <h1>Отговори към въпросника:</h1>
+
+    <table class="table">
+        <#list answers as key, value>
+            <tr>
+                <td>${key}: ${value}</td>
+            </tr>
+            <#else>
+                Имаше проблем със отговорите
+        </#list>
+    </table>
+    </form>
 </body>
 </html>

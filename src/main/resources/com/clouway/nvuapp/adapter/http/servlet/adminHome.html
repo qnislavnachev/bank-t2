@@ -3,37 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
-    <link rel="stylesheet" type="text/css" href="/assets/home.css">
+    <link rel="stylesheet" type="text/css" href="/assets/project.css">
 </head>
 <body>
-<div>
-    <h1>Добре дошли.</h1>
-    <div style="text-align: right">
-        <a href="/logout"><button class="cancelbtn">Излез</button></a>
-    </div>
-</div>
-<div>
-    <form action="/adminHome/adminQuestions">
-        <input class="buttonlink" type="submit" value="Разгледай всички въпроси"/>
-    </form>
-</div>
-<div>
-    <form action="/adminHome/questions">
-        <input class="buttonlink" type="submit" value="Моите въпроси"/>
-    </form>
-</div>
-<div>
-    <form action="/adminHome/new-questionnaire">
-        <input class="buttonlink" type="submit" value="Създай въпросник"/>
-    </form>
-</div>
-<div>
-    <form action="/adminHome/editquestionnaire">
-        <input class="buttonlink" type="submit" value="Редактирай въпросник"/>
-    </form>
-</div>
-<div>
-    <a href="/adminHome/questionnaireList"><button class="buttonlink">Разгледай всички въпросници</button></a>
-</div>
+<#include "/adminNavbar.ftl">
 </body>
 </html>

@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="assets/questionList.css">
+    <link rel="stylesheet" type="text/css" href="assets/project.css">
     <meta charset="UTF-8">
     <title>View Question List</title>
 </head>
 <body>
+<#include "/userNavbar.ftl">
+    <form action="/questions" method="post">
+        <#include "/userQuestionFilter.ftl">
+            <input type="submit" onclick="submit" value="Филтрирай">
+    </form>
 <p>Вашите въпроси са:</p><br>
     <#list questionList as question>
                 <table class="table">

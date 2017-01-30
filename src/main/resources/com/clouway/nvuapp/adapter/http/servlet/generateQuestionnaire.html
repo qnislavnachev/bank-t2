@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Създай въпросник</title>
-    <link rel="stylesheet" type="text/css" href="/assets/home.css">
+    <link rel="stylesheet" type="text/css" href="/assets/project.css">
 </head>
 <body>
+<#include "/adminNavbar.ftl">
 <h1>
     <#if message??>
         ${message}
@@ -42,11 +43,6 @@
 <div>
     <form action="/adminHome/finishquestionnaire">
         <input class="buttonlink" type="submit" value="Завърши въпросник"/>
-    </form>
-</div>
-<div>
-    <form action="/adminHome">
-        <input class="buttonlink" type="submit" value="Към акаунт панела"/>
     </form>
 </div>
 </body>

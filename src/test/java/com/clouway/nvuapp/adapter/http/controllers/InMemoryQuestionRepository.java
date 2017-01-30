@@ -39,7 +39,7 @@ public class InMemoryQuestionRepository implements QuestionRepository {
 
   @Override
   public List<Question> getQuestions() {
-    return null;
+    return questions;
   }
 
   @Override
@@ -62,3 +62,4 @@ public class InMemoryQuestionRepository implements QuestionRepository {
     return result;
   }
 }
+

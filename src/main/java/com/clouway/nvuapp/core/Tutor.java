@@ -17,6 +17,21 @@ public class Tutor {
     this.password = password;
   }
 
+  public String getTutorId() {
+    return tutorId;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public boolean isAdmin(){
+    if (tutorId.equals("admin")){
+      return true;
+    }
+    return false;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;

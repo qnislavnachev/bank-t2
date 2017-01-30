@@ -1,6 +1,9 @@
 package com.clouway.nvuapp.core;
 
 import com.google.common.base.Objects;
+import com.google.common.collect.Sets;
+
+import java.util.Set;
 
 /**
  * @author Vasil Mitov <v.mitov.clouway@gmail.com>
@@ -80,6 +83,10 @@ public class Question {
 
   public void setAnswerC(String answerC) {
     this.answerC = answerC;
+  }
+
+  public Set<String> searchIndex(){
+    return Sets.newHashSet("tutorId:"+tutorId,"category:"+category,"module:"+module,"subModule:"+subModule,"theme:"+theme,"difficulty:"+difficulty);
   }
 
   @Override

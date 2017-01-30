@@ -2,11 +2,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Създай въпрос</title>
-    <link rel="stylesheet" type="text/css" href="assets/home.css">
+    <link rel="stylesheet" type="text/css" href="/assets/project.css">
 </head>
 <body>
-<h1>Създаване на въпрос</h1>
-
+<#include "/adminNavbar.ftl">
 <form action="/adminHome/registerquestion" method="post">
     <#include "/questionFilter.ftl">
         <h2>Въпрос:</h2>
@@ -22,8 +21,5 @@
         <input type="submit" onclick="submit" value="Създай">
 </form>
 <h2>${message}</h2>
-<form action="/">
-    <input class="buttonlink" type="submit" value="Към акаунт панел" />
-</form>
 </body>
 </html>

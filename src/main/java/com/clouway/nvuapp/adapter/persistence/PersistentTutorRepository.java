@@ -26,4 +26,10 @@ public class PersistentTutorRepository implements TutorRepository {
     String fetchId = "SELECT * FROM TUTORS WHERE TUTOR_ID='" + id + "'";
     return dataStore.fetchRows(fetchId, resultSet -> (new Tutor(resultSet.getString(1), resultSet.getString(2))));
   }
+
+  @Override
+  public List<Tutor> allTutors() {
+    String query="SELECT * FROM TUTORS";
+    return dataStore.fetchRows(query, resultSet -> (new Tutor(resultSet.getString(1), resultSet.getString(2))));
+  }
 }
