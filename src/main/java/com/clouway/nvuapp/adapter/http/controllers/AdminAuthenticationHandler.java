@@ -25,7 +25,7 @@ public class AdminAuthenticationHandler implements PageHandler {
         }
         Optional<Tutor> possibleTutor = sessions.findTutorBySessionId(cookie.getValue(), LocalDateTime.now().withNano(0));
         if (!possibleTutor.isPresent()) {
-            cookie.setMaxAge(-1);
+            cookie.setMaxAge(0);
             return new RsRedirect("/login");
         }
         if (!"admin".equals(possibleTutor.get().tutorId)){
