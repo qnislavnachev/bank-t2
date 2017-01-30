@@ -5,6 +5,7 @@ import com.clouway.nvuapp.core.Tutor;
 import org.hamcrest.*;
 
 import javax.servlet.http.Cookie;
+import java.util.List;
 import java.util.Optional;
 
 public class CustomMatchers {
@@ -107,6 +108,27 @@ public class CustomMatchers {
             protected void describeMismatchSafely(Cookie item, Description mismatchDescription) {
                 mismatchDescription.appendText("was ");
                 mismatchDescription.appendValue(item.getMaxAge());
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("expected ");
+                description.appendValue(true);
+            }
+        };
+    }
+
+    public static Matcher<List<Questionnaire>> containsObj(Questionnaire questionnaire) {
+        return new TypeSafeMatcher<List<Questionnaire>>() {
+            @Override
+            protected boolean matchesSafely(List<Questionnaire> questionnairesList) {
+                return questionnairesList.contains(questionnaire);
+            }
+
+            @Override
+            protected void describeMismatchSafely(List<Questionnaire> item, Description mismatchDescription) {
+                mismatchDescription.appendText("was ");
+                mismatchDescription.appendValue(false);
             }
 
             @Override

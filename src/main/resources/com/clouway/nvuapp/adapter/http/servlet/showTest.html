@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Test</title>
+</head>
+<body>
+<ul>
+    <h1>Въпросник № ${num}</h1>
+    <#list questions as question>
+            <h2>
+                <li>Въпрос ${question?index+1}</li>
+            </h2>
+            <li>${question.question}</li>
+            <li>А)${question.answerA}</li>
+            <li>Б)${question.answerB}</li>
+            <li>В)${question.answerC}</li>
+    </#list>
+</ul>
+</body>
+</html>

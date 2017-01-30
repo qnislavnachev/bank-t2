@@ -36,6 +36,25 @@ public class PersistentQuestionnaireRepository implements QuestionnaireRepositor
   }
 
   @Override
+  public List<Questionnaire> findAllQuestionnaires() {
+    String query = "select * from QUESTIONNAIRES";
+    List<Questionnaire> questionnaireList = dataStore.fetchRows(query,
+            resultSet -> codec.unmarshall(resultSet.getString(2)));
+    return questionnaireList;
+  }
+
+  @Override
+  public Questionnaire getQuestionnaire(int id) {
+    String query = "select * from QUESTIONNAIRES where ID = " + id;
+    List<String> result = dataStore.fetchRows(query, resultSet -> resultSet.getString(2));
+    if (result.isEmpty()){
+        return null;
+    }
+    Questionnaire questionnaire = codec.unmarshall(result.get(0));
+    return questionnaire;
+  }
+
+  @Override
   public Questionnaire getLastOrNewQuestionnaire() {
     String query = "SELECT * FROM QUESTIONNAIRES ORDER BY ID DESC LIMIT 1";
     List<String> result = dataStore.fetchRows(query, resultSet -> resultSet.getString(2));
