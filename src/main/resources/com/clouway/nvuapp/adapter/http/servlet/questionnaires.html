@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Questionnaires List</title>
+</head>
+<body>
+<#list questionnaireList as questionnaire>
+    <div>
+        <a href="/adminHome/viewQuestionnaire">
+            <button name="id" type="submit" value="${questionnaire.ID}">Това е въпросник № ${questionnaire.ID}</button></a>
+    </div>
+</#list>
+</body>
+</html>

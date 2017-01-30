@@ -4,6 +4,7 @@ import com.clouway.nvuapp.core.QuestionnaireRepository;
 import com.clouway.nvuapp.core.Questionnaire;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,6 +23,16 @@ public class InMemoryQuestionnaireRepository implements QuestionnaireRepository 
   @Override
   public void update(Questionnaire questionnaire) {
     questionnaires.put(questionnaire.getID(), questionnaire);
+  }
+
+  @Override
+  public List<Questionnaire> findAllQuestionnaires() {
+    return null;
+  }
+
+  @Override
+  public Questionnaire getQuestionnaire(int id) {
+    return null;
   }
 
   @Override
