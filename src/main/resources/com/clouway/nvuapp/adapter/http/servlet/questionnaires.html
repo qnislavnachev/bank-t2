@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="/assets/project.css">
     <meta charset="UTF-8">
     <title>Questionnaires List</title>
 </head>
 <body>
+<#include "/adminNavbar.ftl">
+<form action="/adminHome/viewQuestionnaire">
 <#list questionnaireList as questionnaire>
     <div>
-        <a href="/adminHome/viewQuestionnaire">
-            <button name="id" type="submit" value="${questionnaire.ID}">Това е въпросник № ${questionnaire.ID}</button></a>
+        <button name="id" type="submit" value="${questionnaire.ID}">Въпросник № ${questionnaire.ID}</button>
     </div>
+    <#else>
+        <p>Няма добавени въпросници</p>
 </#list>
+</form>
 </body>
 </html>
