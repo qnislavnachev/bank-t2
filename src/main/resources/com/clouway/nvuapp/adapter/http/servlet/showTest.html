@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="/assets/project.css">
     <meta charset="UTF-8">
     <title>View Test</title>
 </head>
 <body>
-<ul>
+<#include "/adminNavbar.ftl">
     <h1>Въпросник № ${num}</h1>
     <#list questions as question>
-            <h2>
-                <li>Въпрос ${question?index+1}</li>
-            </h2>
-            <li>${question.question}</li>
-            <li>А)${question.answerA}</li>
-            <li>Б)${question.answerB}</li>
-            <li>В)${question.answerC}</li>
+        <table class="table">
+            <tr><th>Въпрос ${question?index+1}<br>
+                ${question.question}
+            </th></tr>
+            <tr><td>A) ${question.answerA}</td></tr>
+            <tr><td>B) ${question.answerB}</td></tr>
+            <tr><td>C) ${question.answerC}</td></tr>
+        </table><br>
     </#list>
-</ul>
 </body>
 </html>
