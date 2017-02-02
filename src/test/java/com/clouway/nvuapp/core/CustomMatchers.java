@@ -2,9 +2,12 @@ package com.clouway.nvuapp.core;
 
 import com.clouway.nvuapp.core.Response;
 import com.clouway.nvuapp.core.Tutor;
+import com.google.common.io.ByteStreams;
 import org.hamcrest.*;
 
 import javax.servlet.http.Cookie;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 
@@ -127,6 +130,35 @@ public class CustomMatchers {
 
             @Override
             protected void describeMismatchSafely(List<Questionnaire> item, Description mismatchDescription) {
+                mismatchDescription.appendText("was ");
+                mismatchDescription.appendValue(false);
+            }
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("expected ");
+                description.appendValue(true);
+            }
+        };
+    }
+
+    public static Matcher<Response> notContainString(String str) {
+        return new TypeSafeMatcher<Response>() {
+            @Override
+            protected boolean matchesSafely(Response response) {
+                String responseString;
+                boolean contains = false;
+                try {
+                    responseString = new String(ByteStreams.toByteArray(response.body()), StandardCharsets.UTF_8);
+                    contains = responseString.contains(str);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return !contains;
+            }
+
+            @Override
+            protected void describeMismatchSafely(Response item, Description mismatchDescription) {
                 mismatchDescription.appendText("was ");
                 mismatchDescription.appendValue(false);
             }

@@ -16,7 +16,21 @@ public class QuestionnaireListHandler implements SecuredHandler {
     @Override
     public Response handle(Request request, Tutor tutor) {
         List<Questionnaire> questionnaireList = repository.findAllQuestionnaires();
+        removeUnfinishedQuestionnaires(questionnaireList);
         return new RsFreemarker("questionnaires.html",
                 Collections.singletonMap("questionnaireList", questionnaireList));
+    }
+
+    /**
+     * this is a method that removes unfinished questionnaires from the list of
+     * questionnaires which user is able to see, note that the list can contain
+     * just 1 questionnaires that has no answers
+     */
+    private void removeUnfinishedQuestionnaires(List<Questionnaire> questionnaires) {
+        for (Questionnaire each : questionnaires) {
+            if (each.noAnswers()) {
+                questionnaires.remove(each);
+            }
+        }
     }
 }
