@@ -9,14 +9,15 @@
 <#include "/adminNavbar.ftl">
     <div class="questionList">
     <h1>Въпросник № ${num}</h1>
-    <#list questions as question>
+    <#list questions as answer, question>
         <table class="table">
-            <tr><th>Въпрос ${question?index+1}<br>
-                ${question.question}
-            </th></tr>
+            <tr><th>${question.question}</th></tr>
             <tr><td>A) ${question.answerA}</td></tr>
             <tr><td>B) ${question.answerB}</td></tr>
             <tr><td>C) ${question.answerC}</td></tr>
+            <tr style="text-align: right"><td>
+                Отговор: ${answer}
+            </td></tr>
         </table><br>
     </#list>
     </div>

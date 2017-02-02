@@ -34,6 +34,7 @@ public class ViewQuestionnaireHandlerTest {
         Questionnaire questionnaire = new Questionnaire(1);
         questionnaire.addQuestions(Lists.newArrayList(new Question("4321", "A1", 1, 2, 3, 4, "myQuestion", "a", "b", "c")));
 
+        questionnaire.finish();
         repository.register(questionnaire);
 
         ViewQuestionnaireHandler handler = new ViewQuestionnaireHandler(repository);
